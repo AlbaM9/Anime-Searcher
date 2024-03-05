@@ -1,3 +1,17 @@
+body {
+    background-color: black;
+    color: aliceblue;
+}
+
+h2 {
+    color: white;
+
+}
+
+h3 {
+    width: 10vw;
+}
+
 .masterContainer {
     display: flex;
     flex-direction: row-reverse;
@@ -11,9 +25,23 @@
 
 .searchList {
     width: 40vw;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
     flex-direction: column;
     margin-top: 70px;
+    align-items: center;
+
+    .completeAnime {
+        padding: 20px;
+        height: 40vh;
+
+        img {
+            height: 70%;
+
+        }
+
+    }
 
 }
 
@@ -21,16 +49,51 @@
     width: 40vw;
     display: flex;
     flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    //border: 5px solid pink;
+
+}
+
+.completeAnime {
+    padding: 20px;
 
 }
 
 .selected {
     background-color: black;
-    color: white;
-    padding-bottom: 10px;
+    color: blue;
+    border: 5px solid blue;
+
 
 }
 
+.favsItems {
+    color: white;
+    border: 3px solid lightskyblue;
+    display: flex;
+    gap: 10px;
+    ;
+    //height: 20vh;
+
+    img {
+        width: 5vw;
+    }
+}
+
+
+
 .hidden {
     display: none;
+}
+
+.searchInput {
+    padding: 5px 25px;
+    border: 1px solid lightskyblue;
+}
+
+.searchBtn {
+    padding: 10px 20px;
+    background-color: lightskyblue;
+    border-radius: 21px;
 }

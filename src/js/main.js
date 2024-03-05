@@ -6,7 +6,7 @@ let searchInput = document.querySelector(".searchInput")
 const resetBtn = document.querySelector(".resetBtn")
 const searchBtn = document.querySelector(".searchBtn")
 
-const savedAnimes = JSON.parse(localStorage.getItem("favourites"));
+let savedAnimes = JSON.parse(localStorage.getItem("favourites"));
 
 let animesToShow;
 let imageCard;
@@ -17,11 +17,9 @@ if (savedAnimes !== null) {
 
     FavouritesList.classList.remove("hidden"); //cargan al inicio; evitar que se genere un nuevo array al pulsar nuscar por primera vez
     FavouritesList.innerHTML = " ";
-    renderCards(savedAnimes, FavouritesList);
+    renderCards(savedAnimes, FavouritesList, "Animes Favoritos", "favsItems");
+
 }
-
-
-
 
 function handleFilter(event) {
     event.preventDefault();
@@ -31,7 +29,7 @@ function handleFilter(event) {
     if (savedAnimes !== null) {
         favArray = savedAnimes;
         FavouritesList.innerHTML = " ";// reasigno para no perder el valor de array de favoritos guardado tras cada adición
-        renderCards(favArray, FavouritesList);
+        renderCards(favArray, FavouritesList, "Animes Favoritos", "favsItems");
 
     }
     fetch(SERVER_URL)
@@ -46,8 +44,8 @@ function handleFilter(event) {
             animesToShow = data.data;
             console.log(animesToShow);
             seachResultsList.innerHTML = "";
-            renderCards(animesToShow, seachResultsList);
-            renderCards(savedAnimes, FavouritesList); // renderiza el nuevo array
+            renderCards(animesToShow, seachResultsList, "Resultado de búsqueda", "selected");
+            renderCards(savedAnimes, FavouritesList, "Animes Favoritos", "favsItems"); // renderiza el nuevo array
             favouritesRender();
         })
 
@@ -55,15 +53,15 @@ function handleFilter(event) {
 }
 searchBtn.addEventListener("click", handleFilter);
 
-function renderCards(animesData, list) {
+function renderCards(animesData, list, title, styleClass) {
     console.log("recarga");
-    let content = "";
+    let content = `<h2>${title}</h2>`;
 
     animesData.forEach(card => {
         imageCard = card.images.jpg.image_url;
 
         if (card.myFavourite == true) {
-            content += `<div class = "completeAnime selected" > `
+            content += `<div class = "completeAnime ${styleClass}" > `
 
         } else {
             content += `<div class = "completeAnime" > `
@@ -71,8 +69,9 @@ function renderCards(animesData, list) {
 
         if (imageCard !== null) {
             content += `
-            <h3 id = "${card.mal_id}">${card.title}</h3>
-            <img src="${imageCard}" alt="${card.title}" id = "${card.mal_id}">`;
+           
+            <img src="${imageCard}" alt="${card.title}" id = "${card.mal_id}">
+            <h3 id = "${card.mal_id}">${card.title}</h3>`;
         } else {
             content += `
             <h3>${card.title}</h3>
@@ -100,7 +99,7 @@ function handleAddFavourites(event) {
 
     favArray.push(animesToShow[animeindex]);
     seachResultsList.innerHTML = " ";
-    renderCards(animesToShow, seachResultsList);
+    renderCards(animesToShow, seachResultsList, "Resultado de búsqueda", "selected");
     favouritesRender();
 
 
@@ -112,9 +111,12 @@ function favouritesRender() {
     FavouritesList.classList.remove("hidden");
     FavouritesList.innerHTML = " ";
 
-    renderCards(favArray, FavouritesList); // renderiza el nuevo array
+    renderCards(favArray, FavouritesList, "Animes Favoritos", "favsItems"); // renderiza el nuevo array
     console.log(favArray);
-
     localStorage.setItem("favourites", JSON.stringify(favArray));
 }
 
+resetBtn.addEventListener("click", () => {
+
+
+})
