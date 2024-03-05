@@ -34,10 +34,11 @@ h3 {
 
     .completeAnime {
         padding: 20px;
-        height: 40vh;
+        height: 50vh;
 
         img {
-            height: 70%;
+            max-width: 170px;
+            max-height: 200px;
 
         }
 
