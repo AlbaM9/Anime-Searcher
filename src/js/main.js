@@ -92,12 +92,16 @@ function handleAddFavourites(event) {
 
         return anime.mal_id == inputiD;
     })
+    // Compruebo si mi array nuevo favArray contiene el elemento clickado
+    const isAlreadyFavourite = favArray.some((anime) => {
+        return anime.mal_id == inputiD;
+    });
+    // si no lo contiene lo añado al array favArray
+    if (!isAlreadyFavourite) {
+        animesToShow[animeindex].myFavourite = true;
+        favArray.push(animesToShow[animeindex]);
+    }
 
-
-
-    animesToShow[animeindex].myFavourite = true;
-
-    favArray.push(animesToShow[animeindex]);
     seachResultsList.innerHTML = " ";
     renderCards(animesToShow, seachResultsList, "Resultado de búsqueda", "selected");
     favouritesRender();
