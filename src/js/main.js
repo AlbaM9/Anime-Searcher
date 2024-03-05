@@ -13,9 +13,14 @@ let imageCard;
 let searchTerm;
 let favArray = [];
 
-FavouritesList.classList.remove("hidden"); //cargan al inicio; evitar que se genere un nuevo array al pulsar nuscar por primera vez
-FavouritesList.innerHTML = " ";
-renderCards(savedAnimes, FavouritesList);
+if (savedAnimes !== null) {
+
+    FavouritesList.classList.remove("hidden"); //cargan al inicio; evitar que se genere un nuevo array al pulsar nuscar por primera vez
+    FavouritesList.innerHTML = " ";
+    renderCards(savedAnimes, FavouritesList);
+}
+
+
 
 
 function handleFilter(event) {
@@ -24,27 +29,28 @@ function handleFilter(event) {
     const SERVER_URL = `https://api.jikan.moe/v4/anime?q=${searchTerm}"`;
 
     if (savedAnimes !== null) {
-        favArray = savedAnimes; // reasigno para no perder el valor de array de favoritos guardado tras cada adición
+        favArray = savedAnimes;
+        FavouritesList.innerHTML = " ";// reasigno para no perder el valor de array de favoritos guardado tras cada adición
         renderCards(favArray, FavouritesList);
 
-    } else {
-        fetch(SERVER_URL)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-
-                animesToShow = data.data;
-                console.log(animesToShow);
-                seachResultsList.innerHTML = "";
-                renderCards(animesToShow, seachResultsList);
-                renderCards(savedAnimes, FavouritesList); // renderiza el nuevo array
-                favouritesRender();
-            })
     }
+    fetch(SERVER_URL)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+
+            animesToShow = data.data;
+            console.log(animesToShow);
+            seachResultsList.innerHTML = "";
+            renderCards(animesToShow, seachResultsList);
+            renderCards(savedAnimes, FavouritesList); // renderiza el nuevo array
+            favouritesRender();
+        })
+
 
 }
 searchBtn.addEventListener("click", handleFilter);
