@@ -62,7 +62,6 @@ function handleFilter(event) {
 }
 searchBtn.addEventListener("click", handleFilter);
 
-
 function renderCards(animesData, list, title, styleClass, deBtn) {
     console.log("recarga");
     let content = `<h2>${title}</h2>`;
@@ -100,7 +99,6 @@ function renderCards(animesData, list, title, styleClass, deBtn) {
 
 }
 
-
 function handleAddFavourites(event) {
     const inputiD = event.target.id;
 
@@ -115,7 +113,6 @@ function handleAddFavourites(event) {
         return anime.mal_id == inputiD;
     });
 
-
     // si no lo contiene lo añado al array favArray
     if (!isAlreadyFavourite) {
         animesToShow[animeindex].myFavourite = true;
@@ -124,8 +121,6 @@ function handleAddFavourites(event) {
     } else {
         return
     }
-
-
     seachResultsList.innerHTML = " ";
     renderCards(animesToShow, seachResultsList, "Resultado de búsqueda", "selected", "hidden");
     favouritesRender();
@@ -138,15 +133,8 @@ function favouritesRender() {
 
     FavouritesList.classList.remove("hidden");
     FavouritesList.innerHTML = " ";
-
     renderCards(favArray, FavouritesList, "Animes Favoritos", "favsItems"); // renderiza el nuevo array
-    console.log(favArray);
-
     localStorage.setItem("favourites", JSON.stringify(favArray));
-
-
-
-
 }
 
 /*resetBtn.addEventListener("click", (event) => {
