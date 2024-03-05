@@ -11,7 +11,9 @@ const savedAnimes = JSON.parse(localStorage.getItem("favourites"));
 let animesToShow;
 let imageCard;
 let searchTerm;
-let selectedElement;
+let favArray = [];
+
+//renderCards(savedAnimes, FavouritesList); // renderiza el nuevo array
 
 function handleFilter(event) {
     event.preventDefault();
@@ -30,13 +32,14 @@ function handleFilter(event) {
             animesToShow = data.data;
             console.log(animesToShow);
             seachResultsList.innerHTML = "";
-            renderCards(animesToShow);
-
+            renderCards(animesToShow, seachResultsList);
+            renderCards(savedAnimes, FavouritesList); // renderiza el nuevo array
+            favouritesRender();
         })
 }
 searchBtn.addEventListener("click", handleFilter);
 
-function renderCards(animesData) {
+function renderCards(animesData, list) {
     console.log("recarga");
     let content = "";
 
@@ -45,6 +48,7 @@ function renderCards(animesData) {
 
         if (card.myFavourite == true) {
             content += `<div class = "completeAnime selected" > `
+
         } else {
             content += `<div class = "completeAnime" > `
         }
@@ -62,7 +66,7 @@ function renderCards(animesData) {
 
     });
 
-    seachResultsList.innerHTML += content;
+    list.innerHTML += content;
 
 }
 function handleAddFavourites(event) {
@@ -75,21 +79,27 @@ function handleAddFavourites(event) {
     })
 
 
-    if (animesToShow[animeindex].myFavourite) {
-        animesToShow[animeindex].myFavourite = false;
-    } else {
-        animesToShow[animeindex].myFavourite = true;
-    }
+
+    animesToShow[animeindex].myFavourite = true;
+
+    favArray.push(animesToShow[animeindex]);
+    localStorage.setItem("favourites", JSON.stringify(favArray));
 
     seachResultsList.innerHTML = " ";
-    renderCards(animesToShow);
-    localStorage.setItem("favourites", JSON.stringify(animesToShow)); //guardamos los cambios en la clase favourites; 
+    renderCards(animesToShow, seachResultsList);
+    favouritesRender();
 
 
 }
 seachResultsList.addEventListener("click", handleAddFavourites);
 
 function favouritesRender() {
+
+    FavouritesList.classList.remove("hidden");
+    FavouritesList.innerHTML = " ";
+
+    renderCards(favArray, FavouritesList); // renderiza el nuevo array
+    console.log(favArray);
 
 
 

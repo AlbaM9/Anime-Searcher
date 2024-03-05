@@ -1,23 +1,36 @@
 .masterContainer {
     display: flex;
-    width: 33vh;
+    flex-direction: row-reverse;
+    width: 100vw;
     margin: 15px;
-    border: 5px solid rgb(240, 240, 240);
+    gap: 30px;
     border-radius: 5px;
+    justify-content: start;
 
 }
 
 .searchList {
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    margin-top: 70px;
 
+}
+
+.favsList {
+    width: 40vw;
     display: flex;
     flex-direction: column;
 
 }
-
 
 .selected {
     background-color: black;
     color: white;
     padding-bottom: 10px;
 
+}
+
+.hidden {
+    display: none;
 }
