@@ -17,24 +17,25 @@ h3 {
     flex-direction: row-reverse;
     width: 100vw;
     margin: 15px;
-    gap: 30px;
     border-radius: 5px;
     justify-content: start;
 
 }
 
 .searchList {
-    width: 40vw;
+
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 250px);
     gap: 5px;
-    flex-direction: column;
-    margin-top: 70px;
-    align-items: center;
+    text-align: center;
+    justify-content: center;
+    max-height: 50vh;
+
 
     .completeAnime {
+
+        height: 40vh;
         padding: 20px;
-        height: 50vh;
 
         img {
             max-width: 170px;
@@ -44,6 +45,7 @@ h3 {
 
     }
 
+
 }
 
 .favsList {
@@ -52,30 +54,26 @@ h3 {
     flex-direction: column;
     align-items: start;
     gap: 10px;
-    //border: 5px solid pink;
 
-}
-
-.completeAnime {
-    padding: 20px;
 
 }
 
 .selected {
     background-color: black;
     color: blue;
-    border: 5px solid blue;
+    border: 3px solid blue;
 
 
 }
 
 .favsItems {
+    min-width: 100px;
+    width: 20vw;
     color: white;
     border: 3px solid lightskyblue;
     display: flex;
     gap: 10px;
-    ;
-    //height: 20vh;
+    padding: 10px;
 
     img {
         width: 5vw;
