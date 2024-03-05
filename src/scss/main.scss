@@ -22,13 +22,18 @@ h3 {
 
 }
 
+.delButn {
+    width: 50px;
+    height: 50px;
+    background-color: lightskyblue;
+    border-radius: 30px;
+}
+
 .searchList {
 
     display: grid;
     grid-template-columns: repeat(3, 250px);
     gap: 5px;
-    text-align: center;
-    justify-content: center;
     max-height: 50vh;
 
 
@@ -36,6 +41,7 @@ h3 {
 
         height: 40vh;
         padding: 20px;
+
 
         img {
             max-width: 170px;
