@@ -13,29 +13,39 @@ let imageCard;
 let searchTerm;
 let favArray = [];
 
-//renderCards(savedAnimes, FavouritesList); // renderiza el nuevo array
+FavouritesList.classList.remove("hidden"); //cargan al inicio; evitar que se genere un nuevo array al pulsar nuscar por primera vez
+FavouritesList.innerHTML = " ";
+renderCards(savedAnimes, FavouritesList);
+
 
 function handleFilter(event) {
     event.preventDefault();
     searchTerm = searchInput.value.toLowerCase();
     const SERVER_URL = `https://api.jikan.moe/v4/anime?q=${searchTerm}"`;
 
-    fetch(SERVER_URL)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
+    if (savedAnimes !== null) {
+        favArray = savedAnimes; // reasigno para no perder el valor de array de favoritos guardado tras cada adición
+        renderCards(favArray, FavouritesList);
 
-            animesToShow = data.data;
-            console.log(animesToShow);
-            seachResultsList.innerHTML = "";
-            renderCards(animesToShow, seachResultsList);
-            renderCards(savedAnimes, FavouritesList); // renderiza el nuevo array
-            favouritesRender();
-        })
+    } else {
+        fetch(SERVER_URL)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+
+                animesToShow = data.data;
+                console.log(animesToShow);
+                seachResultsList.innerHTML = "";
+                renderCards(animesToShow, seachResultsList);
+                renderCards(savedAnimes, FavouritesList); // renderiza el nuevo array
+                favouritesRender();
+            })
+    }
+
 }
 searchBtn.addEventListener("click", handleFilter);
 
@@ -83,8 +93,6 @@ function handleAddFavourites(event) {
     animesToShow[animeindex].myFavourite = true;
 
     favArray.push(animesToShow[animeindex]);
-    localStorage.setItem("favourites", JSON.stringify(favArray));
-
     seachResultsList.innerHTML = " ";
     renderCards(animesToShow, seachResultsList);
     favouritesRender();
@@ -101,7 +109,6 @@ function favouritesRender() {
     renderCards(favArray, FavouritesList); // renderiza el nuevo array
     console.log(favArray);
 
-
-
+    localStorage.setItem("favourites", JSON.stringify(favArray));
 }
 
