@@ -25,10 +25,8 @@ function handleFilter(event) {
 
             animesToShow = data.data;
             console.log(animesToShow);
-
             seachResultsList.innerHTML = "";
             renderCards(animesToShow);
-            // localStorage.setItem("myAnimes", JSON.stringify(animesToShow));
 
         })
 }
@@ -42,27 +40,21 @@ function renderCards(animesData) {
 
         imageCard = card.images.jpg.image_url;
         console.log(imageCard);
-
-        /* if (card.selected === true) {
-             content += `<div class = "completeAnime selected" > `
- 
- 
-         } else {
-            
-         }*/
-
         content += `<div class = "completeAnime" > `
-        card.selected = false;
-        content += `
-        <h3>${card.title}</h3>
-        <img src="${imageCard}" alt="${card.title}">`;
 
+        card.selected = false;
+        if (imageCard !== null) {
+            content += `
+            <h3>${card.title}</h3>
+            <img src="${imageCard}" alt="${card.title}">`;
+        } else {
+            content += `
+            <h3>${card.title}</h3>
+            <img src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV" alt="${card.title}">`;
+        }
 
     });
+
     seachResultsList.innerHTML += content;
-    searchTerm = "";
-    searchInput = "";
-
-
 
 }
