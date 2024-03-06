@@ -180,6 +180,7 @@ function handleRemoveFromFav(event) {
     }
 
     localStorage.setItem("favourites", JSON.stringify(favArray));
+    handleFilter(event);
 }
 
 FavouritesList.addEventListener("click", handleRemoveFromFav);
