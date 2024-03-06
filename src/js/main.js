@@ -7,7 +7,7 @@ const FavouritesList = document.querySelector(".favsList")
 let searchInput = document.querySelector(".searchInput")
 const resetBtn = document.querySelector(".resetBtn")
 const searchBtn = document.querySelector(".searchBtn")
-const delBtn = document.querySelector(".delButn")
+
 
 let savedAnimes = JSON.parse(localStorage.getItem("favourites"));
 
@@ -166,4 +166,21 @@ function favouritesRender() {
     //renderCards(favArray, FavouritesList, "Animes Favoritos", "favsItems"); // renderiza el nuevo array
 
 })*/
+function handleRemoveFromFav(event) {
+
+    const inputFaviD = event.target.id;
+
+    console.log(inputFaviD);
+    const animeFavindex = savedAnimes.findIndex((fav) => {
+        return fav.mal_id == inputFaviD;
+    })
+    console.log(animeFavindex);
+    savedAnimes.splice(savedAnimes[animeFavindex], 1);
+
+    localStorage.setItem("favourites", JSON.stringify(savedAnimes));
+    FavouritesList.innerHTML = "";
+    renderCards(savedAnimes, FavouritesList, "Animes favoritos", "favsItems");
+
+}
+FavouritesList.addEventListener("click", handleRemoveFromFav);
 
