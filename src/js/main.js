@@ -66,6 +66,7 @@ function handleFilter(event) {
                     masterContainer.classList.remove("reverse");
                 }
             }
+
             favouritesRender();
         })
 
@@ -139,12 +140,17 @@ seachResultsList.addEventListener("click", handleAddFavourites);
 
 function favouritesRender() {
 
-    if (savedAnimes.length === 0) {
+
+
+    if (favArray.length === 0) {
 
         FavouritesList.classList.add("hidden");
         masterContainer.classList.remove("reverse");
 
-    } else {
+    }
+
+
+    else {
         masterContainer.classList.add("reverse");
         FavouritesList.classList.remove("hidden");
 
