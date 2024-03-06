@@ -76,6 +76,7 @@ searchBtn.addEventListener("click", handleFilter);
 
 function renderCards(animesData, list, title, styleClass, deBtn) {
     let content = `<h2>${title}</h2>`;
+
     animesData.forEach(card => {
         imageCard = card.images.jpg.image_url;
 
@@ -181,7 +182,6 @@ function handleRemoveFromFav(event) {
     }
     localStorage.setItem("favourites", JSON.stringify(favArray));
 }
-
 FavouritesList.addEventListener("click", handleRemoveFromFav);
 
 resetBtn.addEventListener("click", () => {
