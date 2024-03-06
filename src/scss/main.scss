@@ -1,6 +1,7 @@
 body {
     background-color: black;
     color: aliceblue;
+    font-family: "Roboto";
 }
 
 h2 {
@@ -14,12 +15,17 @@ h3 {
 
 .masterContainer {
     display: flex;
-    flex-direction: row-reverse;
+    //flex-direction: row-reverse;
     width: 100vw;
     margin: 15px;
     border-radius: 5px;
     justify-content: start;
 
+}
+
+.reverse {
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .delButn {
