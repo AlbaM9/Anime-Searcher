@@ -36,6 +36,7 @@ if (savedAnimes !== null) {
 }
 function handleFilter(event) {
     event.preventDefault();
+
     searchTerm = searchInput.value.toLowerCase();
     const SERVER_URL = `https://api.jikan.moe/v4/anime?q=${searchTerm}"`;
 
@@ -179,8 +180,10 @@ function handleRemoveFromFav(event) {
         }
     }
 
+
     localStorage.setItem("favourites", JSON.stringify(favArray));
-    handleFilter(event);
+
+
 }
 
 FavouritesList.addEventListener("click", handleRemoveFromFav);
