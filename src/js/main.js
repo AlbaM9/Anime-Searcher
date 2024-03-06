@@ -26,6 +26,7 @@ if (savedAnimes !== null) {
 
     if (savedAnimes.length === 0) {
         masterContainer.classList.remove("reverse");
+        FavouritesList.classList.add("hidden");
     }
 
 }
@@ -180,6 +181,10 @@ function handleRemoveFromFav(event) {
     localStorage.setItem("favourites", JSON.stringify(savedAnimes));
     FavouritesList.innerHTML = "";
     renderCards(savedAnimes, FavouritesList, "Animes favoritos", "favsItems");
+    if (savedAnimes.length <= 0) {
+
+        FavouritesList.classList.add("hidden");
+    }
 
 }
 FavouritesList.addEventListener("click", handleRemoveFromFav);
