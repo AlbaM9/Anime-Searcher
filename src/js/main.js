@@ -19,14 +19,17 @@ let favArray = [];
 
 if (savedAnimes !== null) {
 
-    masterContainer.classList.add("reverse");
-    FavouritesList.classList.remove("hidden"); //cargan al inicio; evitar que se genere un nuevo array al pulsar nuscar por primera vez
-    FavouritesList.innerHTML = " ";
-    renderCards(savedAnimes, FavouritesList, "Animes Favoritos", "favsItems");
-
     if (savedAnimes.length === 0) {
+
         masterContainer.classList.remove("reverse");
         FavouritesList.classList.add("hidden");
+
+    } else {
+        masterContainer.classList.add("reverse");
+        FavouritesList.classList.remove("hidden"); //cargan al inicio; evitar que se genere un nuevo array al pulsar nuscar por primera vez
+        FavouritesList.innerHTML = " ";
+        renderCards(savedAnimes, FavouritesList, "Animes Favoritos", "favsItems");
+
     }
 
 }
@@ -61,13 +64,15 @@ function handleFilter(event) {
 
             } else if (savedAnimes.length === 0) {
 
-                masterContainer.classList.remove("reverse");
-            } else {
                 console.log("no hay favoritos");
                 FavouritesList.innerHTML = "";
                 masterContainer.classList.remove("reverse");
 
-            }
+            } /*else {
+
+                masterContainer.classList.remove("reverse");
+
+            }*/
 
             favouritesRender();
         })
@@ -132,11 +137,9 @@ function handleAddFavourites(event) {
         animesToShow[animeindex].myFavourite = true;
         favArray.push(animesToShow[animeindex]);
 
-    } else {
-        return
     }
     seachResultsList.innerHTML = " ";
-    FavouritesList.classList.remove("hidden");
+    //FavouritesList.classList.remove("hidden");
 
     renderCards(animesToShow, seachResultsList, "Resultado de búsqueda", "selected", "hidden");
     favouritesRender();
@@ -147,26 +150,21 @@ seachResultsList.addEventListener("click", handleAddFavourites);
 
 function favouritesRender() {
 
+    if (savedAnimes.length === 0) {
 
-    masterContainer.classList.add("reverse");
-    FavouritesList.classList.remove("hidden");
-    FavouritesList.innerHTML = " ";
-    renderCards(favArray, FavouritesList, "Animes favoritos", "favsItems"); // renderiza el nuevo array
-    localStorage.setItem("favourites", JSON.stringify(favArray));
+        FavouritesList.classList.add("hidden");
+        masterContainer.classList.remove("reverse");
+
+    } else {
+        masterContainer.classList.add("reverse");
+        FavouritesList.classList.remove("hidden");
+
+        FavouritesList.innerHTML = " ";
+        renderCards(favArray, FavouritesList, "Animes favoritos", "favsItems"); // renderiza el nuevo array
+        localStorage.setItem("favourites", JSON.stringify(favArray));
+    }
 }
 
-/*resetBtn.addEventListener("click", (event) => {
-
-    event.preventDefault();
-
-    localStorage.removeItem("favourites");
-    FavouritesList.innerHTML = "";
-    seachResultsList.innerHTML = "";
-    favArray = [];
-    searchInput.value = "";
-    //renderCards(favArray, FavouritesList, "Animes Favoritos", "favsItems"); // renderiza el nuevo array
-
-})*/
 function handleRemoveFromFav(event) {
 
     const inputFaviD = event.target.id;
@@ -175,16 +173,23 @@ function handleRemoveFromFav(event) {
     const animeFavindex = savedAnimes.findIndex((fav) => {
         return fav.mal_id == inputFaviD;
     })
-    console.log(animeFavindex);
-    savedAnimes.splice(savedAnimes[animeFavindex], 1);
 
-    localStorage.setItem("favourites", JSON.stringify(savedAnimes));
-    FavouritesList.innerHTML = "";
-    renderCards(savedAnimes, FavouritesList, "Animes favoritos", "favsItems");
-    if (savedAnimes.length <= 0) {
+    if (animeFavindex === -1) {
+        console.log("El anime favorito no se encontró en favArray");
+    } else {
+        console.log(animeFavindex);
+        savedAnimes.splice(savedAnimes[animeFavindex], 1);
+        localStorage.setItem("favourites", JSON.stringify(savedAnimes));
+        FavouritesList.innerHTML = "";
+        renderCards(savedAnimes, FavouritesList, "Animes favoritos", "favsItems");
+        if (savedAnimes.length === 0) {
 
-        FavouritesList.classList.add("hidden");
+            FavouritesList.classList.add("hidden");
+        }
     }
+
+
+
 
 }
 FavouritesList.addEventListener("click", handleRemoveFromFav);
