@@ -179,11 +179,7 @@ function handleRemoveFromFav(event) {
             FavouritesList.classList.add("hidden");
         }
     }
-
-
     localStorage.setItem("favourites", JSON.stringify(favArray));
-
-
 }
 
 FavouritesList.addEventListener("click", handleRemoveFromFav);
@@ -195,5 +191,4 @@ resetBtn.addEventListener("click", () => {
     favArray.length = 0;
     localStorage.setItem("favourites", JSON.stringify(favArray));
     searchInput.value = "";
-
 });
