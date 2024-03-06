@@ -60,10 +60,11 @@ function handleFilter(event) {
                 FavouritesList.innerHTML = " ";// reasigno para no perder el valor de array de favoritos guardado tras cada adición
                 renderCards(savedAnimes, FavouritesList, "Animes Favoritos", "favsItems");
 
-            } else if (savedAnimes.length === 0) {
+                if (savedAnimes.length === 0) {
 
-                FavouritesList.innerHTML = "";
-                masterContainer.classList.remove("reverse");
+                    FavouritesList.innerHTML = "";
+                    masterContainer.classList.remove("reverse");
+                }
             }
             favouritesRender();
         })
