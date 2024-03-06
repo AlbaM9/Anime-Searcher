@@ -97,7 +97,7 @@ function renderCards(animesData, list, title, styleClass, deBtn) {
             content += `
             <h3>${card.title}</h3>
             <img src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV" alt="${card.title}">
-            `;
+            <div id = "${card.mal_id}"  class = "delButn ${deBtn}" >X</div>`;
         }
         content += `</div>`
 
