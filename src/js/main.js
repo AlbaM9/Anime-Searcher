@@ -142,12 +142,14 @@ function favouritesRender() {
 
 
 
-    if (favArray.length === 0) {
+    if (favArray.length <= 0) {
 
         FavouritesList.classList.add("hidden");
         masterContainer.classList.remove("reverse");
 
     }
+
+
 
 
     else {
