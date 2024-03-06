@@ -189,7 +189,6 @@ resetBtn.addEventListener("click", () => {
     FavouritesList.innerHTML = "";
     seachResultsList.innerHTML = "";
     favArray.length = 0;
-    searchTerm = "";
     localStorage.setItem("favourites", JSON.stringify(favArray));
     searchInput.value = "";
 
