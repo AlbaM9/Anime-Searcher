@@ -25,6 +25,7 @@ if (savedAnimes !== null) {
         FavouritesList.classList.add("hidden");
 
     } else {
+        favArray = savedAnimes; //reasigno al inicio para funcionalidades. Si no no funciona la eliminacion
         masterContainer.classList.add("reverse");
         FavouritesList.classList.remove("hidden"); //cargan al inicio; evitar que se genere un nuevo array al pulsar nuscar por primera vez
         FavouritesList.innerHTML = " ";
@@ -33,8 +34,6 @@ if (savedAnimes !== null) {
     }
 
 }
-
-
 function handleFilter(event) {
     event.preventDefault();
     searchTerm = searchInput.value.toLowerCase();
@@ -51,7 +50,6 @@ function handleFilter(event) {
         .then(data => {
 
             animesToShow = data.data;
-            console.log(animesToShow);
             seachResultsList.innerHTML = "";
             renderCards(animesToShow, seachResultsList, "Resultado de búsqueda", "selected", "hidden");
 
@@ -60,31 +58,21 @@ function handleFilter(event) {
                 favArray = savedAnimes;
                 masterContainer.classList.add("reverse");
                 FavouritesList.innerHTML = " ";// reasigno para no perder el valor de array de favoritos guardado tras cada adición
-                renderCards(favArray, FavouritesList, "Animes Favoritos", "favsItems");
+                renderCards(savedAnimes, FavouritesList, "Animes Favoritos", "favsItems");
 
             } else if (savedAnimes.length === 0) {
 
-                console.log("no hay favoritos");
                 FavouritesList.innerHTML = "";
                 masterContainer.classList.remove("reverse");
-
-            } /*else {
-
-                masterContainer.classList.remove("reverse");
-
-            }*/
-
+            }
             favouritesRender();
         })
-
 
 }
 searchBtn.addEventListener("click", handleFilter);
 
 function renderCards(animesData, list, title, styleClass, deBtn) {
-    console.log("recarga");
     let content = `<h2>${title}</h2>`;
-
     animesData.forEach(card => {
         imageCard = card.images.jpg.image_url;
 
@@ -101,13 +89,13 @@ function renderCards(animesData, list, title, styleClass, deBtn) {
            
             <img src="${imageCard}" alt="${card.title}" id = "${card.mal_id}">
             <h3 id = "${card.mal_id}">${card.title}</h3>
-            <button  class = "delButn ${deBtn}" >Borrar</button>`;
+            <div id = "${card.mal_id}"  class = "delButn ${deBtn}" >X</div>`;
 
         } else {
             content += `
             <h3>${card.title}</h3>
             <img src="https://via.placeholder.com/210x295/ffffff/666666/?text=TV" alt="${card.title}">
-            <button class = "delButn hidden" >Delete</button>`;
+            `;
         }
         content += `</div>`
 
@@ -169,28 +157,28 @@ function handleRemoveFromFav(event) {
 
     const inputFaviD = event.target.id;
 
-    console.log(inputFaviD);
-    const animeFavindex = savedAnimes.findIndex((fav) => {
+    const animeFavindex = favArray.findIndex((fav) => {
         return fav.mal_id == inputFaviD;
     })
 
     if (animeFavindex === -1) {
         console.log("El anime favorito no se encontró en favArray");
+
     } else {
-        console.log(animeFavindex);
-        savedAnimes.splice(savedAnimes[animeFavindex], 1);
-        localStorage.setItem("favourites", JSON.stringify(savedAnimes));
+
+        favArray.splice(animeFavindex, 1);
         FavouritesList.innerHTML = "";
-        renderCards(savedAnimes, FavouritesList, "Animes favoritos", "favsItems");
-        if (savedAnimes.length === 0) {
+        renderCards(favArray, FavouritesList, "Animes favoritos", "favsItems");
+
+
+        if (favArray.length === 0 || savedAnimes.length === 0) {
 
             FavouritesList.classList.add("hidden");
         }
     }
 
-
-
-
+    localStorage.setItem("favourites", JSON.stringify(favArray));
 }
+
 FavouritesList.addEventListener("click", handleRemoveFromFav);
 
