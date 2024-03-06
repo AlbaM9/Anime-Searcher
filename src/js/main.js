@@ -129,8 +129,6 @@ function handleAddFavourites(event) {
 
     }
     seachResultsList.innerHTML = " ";
-    //FavouritesList.classList.remove("hidden");
-
     renderCards(animesToShow, seachResultsList, "Resultado de búsqueda", "selected", "hidden");
     favouritesRender();
 
@@ -140,26 +138,21 @@ seachResultsList.addEventListener("click", handleAddFavourites);
 
 function favouritesRender() {
 
-
-
     if (favArray.length <= 0) {
 
         FavouritesList.classList.add("hidden");
         masterContainer.classList.remove("reverse");
-
     }
-
-
-
-
     else {
         masterContainer.classList.add("reverse");
         FavouritesList.classList.remove("hidden");
 
         FavouritesList.innerHTML = " ";
         renderCards(favArray, FavouritesList, "Animes favoritos", "favsItems"); // renderiza el nuevo array
-        localStorage.setItem("favourites", JSON.stringify(favArray));
+
     }
+
+    localStorage.setItem("favourites", JSON.stringify(favArray));
 }
 
 function handleRemoveFromFav(event) {
@@ -191,3 +184,13 @@ function handleRemoveFromFav(event) {
 
 FavouritesList.addEventListener("click", handleRemoveFromFav);
 
+resetBtn.addEventListener("click", () => {
+
+    FavouritesList.innerHTML = "";
+    seachResultsList.innerHTML = "";
+    favArray.length = 0;
+    searchTerm = "";
+    localStorage.setItem("favourites", JSON.stringify(favArray));
+    searchInput.value = "";
+
+});
